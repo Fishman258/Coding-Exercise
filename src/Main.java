@@ -1,0 +1,239 @@
+//ARRAY----------------------------------------------------------------------------------
+////704. Binary Search
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums = {-1,0,3,5,9,12};
+//        int target = 2;
+//        System.out.println(new Main().search(nums, target));
+//    }
+//
+//    public int search(int[] nums, int target){
+//        int left = 0, right = nums.length;
+//        while(left < right){
+//            int mid = left + ((right - left) >> 1);
+//            if (nums[mid] == target){
+//                return mid;
+//            }
+//            else if (nums[mid] < target){
+//                left = mid + 1;
+//            }
+//            else{
+//                right = mid;
+//            }
+//        }
+//        return -1;
+//    }
+//}
+
+////27. Remove Element
+//public class Main{
+//    public static void main(String[] args){
+//        int[] nums = {0,1,2,2,3,0,4,2};
+//        int val = 2;
+//        System.out.println(new Main().removeElement(nums, val));
+//    }
+//
+//    public int removeElement(int[] nums, int val){//two pointers
+//        int slowIndex = 0;
+//        for (int fastIndex = 0; fastIndex < nums.length; fastIndex++){
+//            if (nums[fastIndex] != val){
+//                nums[slowIndex++] = nums[fastIndex];
+//            }
+//        }
+//        return slowIndex;
+//    }
+//}
+
+////977. Squares of a Sorted Array
+//import java.util.Arrays;
+//
+//public class Main{
+//    public static void main(String[] args){
+//        int[] nums = {-7,-3,2,3,11};
+//        System.out.println(Arrays.toString(new Main().sortedSquares(nums)));
+//    }
+//
+//    public int[] sortedSquares(int[] nums){
+//        int l = 0, r = nums.length - 1, j = nums.length - 1;
+//        int[] res = new int[nums.length];
+//        while (l <= r){
+//            if (nums[l] * nums[l] > nums[r] * nums[r]) {
+//                res[j--] = nums[l] * nums[l++];
+//            }else{
+//                res[j--] = nums[r] * nums[r--];
+//            }
+//        }
+//        return res;
+//    }
+//}
+
+////209. Minimum Size Subarray Sum
+//public class Main{
+//    public static void main(String[] args){
+//        int target = 11;
+//        int[] nums = {1,1,1,1,1,1,1,1};
+//        System.out.println(new Main().minSubArrayLen(target, nums));
+//    }
+//
+//    public int minSubArrayLen(int target, int[] nums){//sliding window
+//        int l = 0;//start point of the window
+//        int sum = 0;//sum of the window
+//        int res = Integer.MAX_VALUE;//2^31-1
+//        for (int r = 0; r < nums.length; r++){//r is end point of the window
+//            sum += nums[r];
+//            while (sum >= target) {
+//                res = Math.min(res, r - l + 1);
+//                sum -= nums[l++];
+//            }
+//        }
+//        return res == Integer.MAX_VALUE ? 0 : res;
+//    }
+//}
+
+////59. Spiral Matrix II
+//import java.util.Arrays;
+//public class Main{
+//    public static void main(String[] args){
+//        System.out.println(Arrays.deepToString(new Main().generateMatrix(1)));
+//    }
+//
+//    public int[][] generateMatrix(int n){//simulation
+//        int[][] res = new int[n][n];
+//        int startX = 0, startY = 0;//start point of every loop
+//        int offset = 1;//to modify the length of sides in every loop
+//        int count = 1;//numbers to be filled in the matrix
+//        int loop = 1;//current loop number
+//        int i, j;// i and j are row and column indices respectively
+//        while(loop <= n/2){
+//            for (j = startY; j < n - offset; j++){//top
+//                res[startX][j] = count++;
+//            }
+//            for (i = startX; i < n - offset; i++){//right
+//                res[i][j] = count++;
+//            }
+//            for (; j > startY; j--){//bottom
+//                res[i][j] = count++;
+//            }
+//            for (; i > startX; i--){//left
+//                res[i][j] = count++;
+//            }
+//            startX++;
+//            startY++;
+//            offset++;
+//            loop++;
+//        }
+//        if (n % 2 == 1){
+//            res[startX][startY] = count;
+//        }
+//        return res;
+//    }
+//}
+
+////58. 区间和（https://kamacoder.com/problempage.php?pid=1070）
+//import java.util.Scanner;
+//public class Main{
+//    public static void main(String[] args){
+//        Scanner scanner = new Scanner(System.in);
+//        int n = scanner.nextInt();
+//        int[] nums = new int[n];
+//        int[] p = new int[n];//array for prefix sums
+//        int preSum = 0;
+//
+//        //Store input values and calculate prefix sums:
+//        for (int i = 0; i < n; i++){
+//            nums[i] = scanner.nextInt();
+//            preSum += nums[i];
+//            p[i] = preSum;
+//        }
+//
+//        //Input intervals and calculate their sums
+//        while (scanner.hasNextInt()){
+//            int a = scanner.nextInt();
+//            int b = scanner.nextInt();
+//            int sum;
+//            if(a == 0){
+//                sum = p[b];
+//            }else{
+//                sum = p[b] - p[a - 1];
+//            }
+//            System.out.println(sum);
+//        }
+//
+//        scanner.close();
+//    }
+//}
+
+////44. 开发商买土地（https://kamacoder.com/problempage.php?pid=1044）
+//import java.util.Scanner;
+//public class Main{
+//    public static void main(String[] args){
+//        Scanner scanner = new Scanner(System.in);
+//        int n = scanner.nextInt();
+//        int m = scanner.nextInt();
+//        int sum = 0;
+//        int[][] nums = new int[n][m];
+//
+//        //Enter the value of each block:
+//        for (int i = 0; i < n; i++){
+//            for (int j = 0; j < m; j++){
+//                nums[i][j] = scanner.nextInt();
+//                sum += nums[i][j];
+//            }
+//        }
+//
+//        //Calculate the row sums:
+//        int[] rowSums = new int[n];
+//        for (int i = 0; i < n; i++){
+//            for (int j = 0; j < m; j++) {
+//                rowSums[i] += nums[i][j];
+//            }
+//        }
+//
+//        //Calculate the column sums:
+//        int[] colSums = new int[m];
+//        for (int j = 0; j < m; j++){
+//            for (int i = 0; i < n; i++){
+//                colSums[j] += nums[i][j];
+//            }
+//        }
+//
+//        //Calculate prefix sums vertically and horizontally, and find the result we want:
+//        int result = Integer.MAX_VALUE;
+//        int verPreSum = 0;
+//        for (int i = 0; i < n; i++){
+//            verPreSum += rowSums[i];
+//            result = Math.min(result, Math.abs(sum - 2 * verPreSum));
+//        }
+//        int horPreSum = 0;
+//        for (int j = 0; j < m; j++){
+//            horPreSum += colSums[j];
+//            result = Math.min(result, Math.abs(sum - 2 * horPreSum));
+//        }
+//
+//        System.out.println(result);
+//        scanner.close();
+//    }
+//}
+
+//LINKED LIST---------------------------------------------------------------------
+//203. Remove Linked List Elements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
