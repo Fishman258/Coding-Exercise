@@ -217,74 +217,161 @@
 
 
 //LINKED LIST---------------------------------------------------------------------
-//203. Remove Linked List Elements
-public class Main{
-    public static void main(String[] args){
-        int[] nums = {7,7,7,7};
-        int val = 7;
-        ListNode dumHead = new ListNode();
-        ListNode curr = dumHead;
-        for (int num : nums) {
-            curr.next = new ListNode(num);
-            curr = curr.next;
-        }
-        ListNode head = new Main().removeElements(dumHead.next, val);
-        while(head != null){
-            System.out.print(head.val+"  ");
-            head = head.next;
-        }
-    }
-
-//    //In normal way:
-//    public ListNode removeElements(ListNode head, int val){
-//        //Head node:
-//        while (head != null && head.val == val){
+////203. Remove Linked List Elements
+//public class Main{
+//    public static void main(String[] args){
+//        int[] nums = {7,7,7,7};
+//        int val = 7;
+//        ListNode dumHead = new ListNode();
+//        ListNode curr = dumHead;
+//        for (int num : nums) {
+//            curr.next = new ListNode(num);
+//            curr = curr.next;
+//        }
+//        ListNode head = new Main().removeElements(dumHead.next, val);
+//        while(head != null){
+//            System.out.print(head.val+"  ");
 //            head = head.next;
 //        }
+//    }
 //
-//        //Other nodes:
-//        ListNode curr = head;
-//        while (curr != null && curr.next != null) {
+////    //In normal way:
+////    public ListNode removeElements(ListNode head, int val){
+////        //Head node:
+////        while (head != null && head.val == val){
+////            head = head.next;
+////        }
+////
+////        //Other nodes:
+////        ListNode curr = head;
+////        while (curr != null && curr.next != null) {
+////            if (curr.next.val == val){
+////                curr.next = curr.next.next;
+////            }else{
+////                curr = curr.next;
+////            }
+////        }
+////
+////        return head;
+////    }
+//
+////    //In recursive way:
+////    public ListNode removeElements(ListNode head, int val){
+////        //Base case:
+////        if (head == null){
+////            return null;
+////        }
+////
+////        //Recursive case:
+////        if (head.val == val){
+////            return removeElements(head.next, val);
+////        }else{
+////            head.next = removeElements(head.next, val);
+////            return head;
+////        }
+////    }
+//
+//    //Using a dummy head node:
+//    public ListNode removeElements(ListNode head, int val){
+//        ListNode dummy = new ListNode();
+//        dummy.next = head;
+//
+//        ListNode curr = dummy;
+//        while (curr.next != null){
 //            if (curr.next.val == val){
 //                curr.next = curr.next.next;
 //            }else{
 //                curr = curr.next;
 //            }
 //        }
-//
-//        return head;
+//        return dummy.next;
 //    }
+//}
 
-//    //In recursive way:
-//    public ListNode removeElements(ListNode head, int val){
-//        //Base case:
-//        if (head == null){
-//            return null;
-//        }
-//
-//        //Recursive case:
-//        if (head.val == val){
-//            return removeElements(head.next, val);
-//        }else{
-//            head.next = removeElements(head.next, val);
-//            return head;
-//        }
-//    }
+//707. Design Linked List
+class MyLinkedList{
+    int size;
+    ListNode dumHead; //dummy head node
 
-    //Using a dummy head node:
-    public ListNode removeElements(ListNode head, int val){
-        ListNode dummy = new ListNode();
-        dummy.next = head;
+    public MyLinkedList(){
+        size = 0;
+        dumHead = new ListNode(0);
+    }
 
-        ListNode curr = dummy;
-        while (curr.next != null){
-            if (curr.next.val == val){
-                curr.next = curr.next.next;
-            }else{
-                curr = curr.next;
-            }
+    public int get(int index){
+        if (index > size - 1){
+            return -1;
         }
-        return dummy.next;
+        ListNode cur = dumHead;
+        for (int i = 0; i <= index; i++){
+            cur = cur.next;
+        }
+        return cur.val;
+    }
+
+    public void addAtHead(int val){
+        ListNode toAdd = new ListNode(val);
+        toAdd.next = dumHead.next;
+        dumHead.next = toAdd;
+        size++;
+    }
+
+    public void addAtTail(int val){
+        ListNode toAdd = new ListNode(val);
+        ListNode cur = dumHead;
+        while(cur.next != null){
+            cur = cur.next;
+        }
+        cur.next = toAdd;
+        size++;
+    }
+
+    public void addAtIndex(int index, int val){
+        if (index > size){return;}
+        ListNode pred = dumHead;
+        for (int i = 0; i < index; i++){
+            pred = pred.next;
+        }
+        ListNode toAdd = new ListNode(val);
+        toAdd.next = pred.next;
+        pred.next = toAdd;
+        size++;
+    }
+
+    public void deleteAtIndex(int index){
+        if (index >= size) {return;}
+        ListNode pred = dumHead;
+        for (int i = 0; i < index; i++){
+            pred = pred.next;
+        }
+        pred.next = pred.next.next;
+        size--;
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        MyLinkedList myLinkedList = new MyLinkedList();
+        myLinkedList.addAtHead(1);
+        myLinkedList.addAtTail(3);
+        myLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
+        ListNode cur = myLinkedList.dumHead;
+        while (cur.next != null){
+            System.out.print(cur.next.val + "  ");
+            cur = cur.next;
+        }
+        System.out.println();
+        int out = myLinkedList.get(1);              // return 2
+        System.out.println(out);
+        myLinkedList.deleteAtIndex(1);    // now the linked list is 1->3
+        cur = myLinkedList.dumHead;
+        while (cur.next != null){
+            System.out.print(cur.next.val + "  ");
+            cur = cur.next;
+        }
+        System.out.println();
+        out = myLinkedList.get(1);              // return 3
+        System.out.println(out);
     }
 }
 
