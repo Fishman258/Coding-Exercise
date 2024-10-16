@@ -215,9 +215,78 @@
 //    }
 //}
 
+
 //LINKED LIST---------------------------------------------------------------------
 //203. Remove Linked List Elements
+public class Main{
+    public static void main(String[] args){
+        int[] nums = {7,7,7,7};
+        int val = 7;
+        ListNode dumHead = new ListNode();
+        ListNode curr = dumHead;
+        for (int num : nums) {
+            curr.next = new ListNode(num);
+            curr = curr.next;
+        }
+        ListNode head = new Main().removeElements(dumHead.next, val);
+        while(head != null){
+            System.out.print(head.val+"  ");
+            head = head.next;
+        }
+    }
 
+//    //In normal way:
+//    public ListNode removeElements(ListNode head, int val){
+//        //Head node:
+//        while (head != null && head.val == val){
+//            head = head.next;
+//        }
+//
+//        //Other nodes:
+//        ListNode curr = head;
+//        while (curr != null && curr.next != null) {
+//            if (curr.next.val == val){
+//                curr.next = curr.next.next;
+//            }else{
+//                curr = curr.next;
+//            }
+//        }
+//
+//        return head;
+//    }
+
+//    //In recursive way:
+//    public ListNode removeElements(ListNode head, int val){
+//        //Base case:
+//        if (head == null){
+//            return null;
+//        }
+//
+//        //Recursive case:
+//        if (head.val == val){
+//            return removeElements(head.next, val);
+//        }else{
+//            head.next = removeElements(head.next, val);
+//            return head;
+//        }
+//    }
+
+    //Using a dummy head node:
+    public ListNode removeElements(ListNode head, int val){
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+
+        ListNode curr = dummy;
+        while (curr.next != null){
+            if (curr.next.val == val){
+                curr.next = curr.next.next;
+            }else{
+                curr = curr.next;
+            }
+        }
+        return dummy.next;
+    }
+}
 
 
 
