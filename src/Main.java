@@ -375,8 +375,55 @@
 //    }
 //}
 
-//206. Reverse Linked List
-public class Main {
+////206. Reverse Linked List
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums = {1,2,3,4,5};
+//        ListNode dumHead = new ListNode();
+//        ListNode curr = dumHead;
+//        for (int num : nums) {
+//            curr.next = new ListNode(num);
+//            curr = curr.next;
+//        }
+//        curr = new Main().reverseList(dumHead.next);
+//        while (curr != null){
+//            System.out.print(curr.val + " ");
+//            curr = curr.next;
+//        }
+//    }
+////    //Two pointers:
+////    public ListNode reverseList(ListNode head){
+////        ListNode pre = null;
+////        ListNode cur = head;
+////        ListNode tmp = null;
+////        while(cur != null){
+////            tmp = cur.next;
+////            cur.next = pre;
+////            pre = cur;
+////            cur = tmp;
+////        }
+////        return pre;
+////    }
+//
+//    //Recursion:
+//    public ListNode reverseList(ListNode head) {
+//        return reverse(null, head);
+//    }
+//    private ListNode reverse (ListNode pre, ListNode cur){
+//        //Base case:
+//        if (cur == null){
+//            return pre;
+//        }
+//
+//        //Recursive case:
+//        ListNode tmp = cur.next;
+//        cur.next = pre;
+//        return reverse(cur, tmp);
+//    }
+//}
+
+//24. Swap Nodes in Pairs
+public class Main{
     public static void main(String[] args){
         int[] nums = {1,2,3,4,5};
         ListNode dumHead = new ListNode();
@@ -385,40 +432,41 @@ public class Main {
             curr.next = new ListNode(num);
             curr = curr.next;
         }
-        curr = new Main().reverseList(dumHead.next);
+        curr = new Main().swapPairs(dumHead.next);
         while (curr != null){
             System.out.print(curr.val + " ");
             curr = curr.next;
         }
     }
-//    //Two pointers:
-//    public ListNode reverseList(ListNode head){
-//        ListNode pre = null;
-//        ListNode cur = head;
-//        ListNode tmp = null;
-//        while(cur != null){
-//            tmp = cur.next;
-//            cur.next = pre;
-//            pre = cur;
-//            cur = tmp;
+
+//    public ListNode swapPairs(ListNode head){
+//        ListNode dummy = new ListNode(0, head);
+//        ListNode cur = dummy;
+//        while (cur.next != null && cur.next.next != null){
+//            ListNode node1 = cur.next;
+//            ListNode node2 = cur.next.next;
+//            cur.next = node2;
+//            node1.next = node2.next;
+//            node2.next = node1;
+//            cur = cur.next.next;
 //        }
-//        return pre;
+//        return dummy.next;
 //    }
 
     //Recursion:
-    public ListNode reverseList(ListNode head) {
-        return reverse(null, head);
-    }
-    private ListNode reverse (ListNode pre, ListNode cur){
+    public ListNode swapPairs(ListNode head){
         //Base case:
-        if (cur == null){
-            return pre;
+        if (head == null || head.next == null){
+            return head;
         }
 
         //Recursive case:
-        ListNode tmp = cur.next;
-        cur.next = pre;
-        return reverse(cur, tmp);
+        ListNode next = head.next;
+        ListNode newNode = swapPairs(next.next);
+        next.next = head;
+        head.next = newNode;
+
+        return next;
     }
 }
 
