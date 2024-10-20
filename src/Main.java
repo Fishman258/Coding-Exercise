@@ -422,9 +422,58 @@
 //    }
 //}
 
-//24. Swap Nodes in Pairs
-public class Main{
+////24. Swap Nodes in Pairs
+//public class Main{
+//    public static void main(String[] args){
+//        int[] nums = {1,2,3,4,5};
+//        ListNode dumHead = new ListNode();
+//        ListNode curr = dumHead;
+//        for (int num : nums) {
+//            curr.next = new ListNode(num);
+//            curr = curr.next;
+//        }
+//        curr = new Main().swapPairs(dumHead.next);
+//        while (curr != null){
+//            System.out.print(curr.val + " ");
+//            curr = curr.next;
+//        }
+//    }
+//
+////    public ListNode swapPairs(ListNode head){
+////        ListNode dummy = new ListNode(0, head);
+////        ListNode cur = dummy;
+////        while (cur.next != null && cur.next.next != null){
+////            ListNode node1 = cur.next;
+////            ListNode node2 = cur.next.next;
+////            cur.next = node2;
+////            node1.next = node2.next;
+////            node2.next = node1;
+////            cur = cur.next.next;
+////        }
+////        return dummy.next;
+////    }
+//
+//    //Recursion:
+//    public ListNode swapPairs(ListNode head){
+//        //Base case:
+//        if (head == null || head.next == null){
+//            return head;
+//        }
+//
+//        //Recursive case:
+//        ListNode next = head.next;
+//        ListNode newNode = swapPairs(next.next);
+//        next.next = head;
+//        head.next = newNode;
+//
+//        return next;
+//    }
+//}
+
+//19. Remove Nth Node From End of List
+public class Main {
     public static void main(String[] args){
+
         int[] nums = {1,2,3,4,5};
         ListNode dumHead = new ListNode();
         ListNode curr = dumHead;
@@ -432,41 +481,27 @@ public class Main{
             curr.next = new ListNode(num);
             curr = curr.next;
         }
-        curr = new Main().swapPairs(dumHead.next);
+        curr = new Main().removeNthFromEnd(dumHead.next, 2);
         while (curr != null){
             System.out.print(curr.val + " ");
             curr = curr.next;
         }
     }
-
-//    public ListNode swapPairs(ListNode head){
-//        ListNode dummy = new ListNode(0, head);
-//        ListNode cur = dummy;
-//        while (cur.next != null && cur.next.next != null){
-//            ListNode node1 = cur.next;
-//            ListNode node2 = cur.next.next;
-//            cur.next = node2;
-//            node1.next = node2.next;
-//            node2.next = node1;
-//            cur = cur.next.next;
-//        }
-//        return dummy.next;
-//    }
-
-    //Recursion:
-    public ListNode swapPairs(ListNode head){
-        //Base case:
-        if (head == null || head.next == null){
-            return head;
+    public ListNode removeNthFromEnd(ListNode head, int n){
+        ListNode dummy = new ListNode(0, head);
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        for (int i = 0; i <= n; i++){//The fast pointer needs to be n + 1 steps ahead of the slow pointer.
+            fast = fast.next;
         }
-
-        //Recursive case:
-        ListNode next = head.next;
-        ListNode newNode = swapPairs(next.next);
-        next.next = head;
-        head.next = newNode;
-
-        return next;
+        while (fast != null){//Once the loop finishes, the slow pointer will point to the node preceding the one to be deleted.
+            fast = fast.next;
+            slow = slow.next;
+        }
+        if (slow.next != null){
+            slow.next = slow.next.next;
+        }
+        return dummy.next;
     }
 }
 
