@@ -470,38 +470,92 @@
 //    }
 //}
 
-//19. Remove Nth Node From End of List
-public class Main {
-    public static void main(String[] args){
+////19. Remove Nth Node From End of List
+//public class Main {
+//    public static void main(String[] args){
+//
+//        int[] nums = {1,2,3,4,5};
+//        ListNode dumHead = new ListNode();
+//        ListNode curr = dumHead;
+//        for (int num : nums) {
+//            curr.next = new ListNode(num);
+//            curr = curr.next;
+//        }
+//        curr = new Main().removeNthFromEnd(dumHead.next, 2);
+//        while (curr != null){
+//            System.out.print(curr.val + " ");
+//            curr = curr.next;
+//        }
+//    }
+//    public ListNode removeNthFromEnd(ListNode head, int n){
+//        ListNode dummy = new ListNode(0, head);
+//        ListNode fast = dummy;
+//        ListNode slow = dummy;
+//        for (int i = 0; i <= n; i++){//The fast pointer needs to be n + 1 steps ahead of the slow pointer.
+//            fast = fast.next;
+//        }
+//        while (fast != null){//Once the loop finishes, the slow pointer will point to the node preceding the one to be deleted.
+//            fast = fast.next;
+//            slow = slow.next;
+//        }
+//        if (slow.next != null){
+//            slow.next = slow.next.next;
+//        }
+//        return dummy.next;
+//    }
+//}
 
-        int[] nums = {1,2,3,4,5};
-        ListNode dumHead = new ListNode();
-        ListNode curr = dumHead;
-        for (int num : nums) {
-            curr.next = new ListNode(num);
-            curr = curr.next;
+//160. Intersection of Two Linked Lists
+public class Main {
+    public static void main(String[] args){}
+
+//    public ListNode getIntersectionNode(ListNode headA, ListNode headB){
+//        ListNode curA = headA, curB = headB;
+//        int lenA = 0, lenB = 0;
+//        while(curA != null){
+//            lenA++;
+//            curA = curA.next;
+//        }
+//        while(curB != null){
+//            lenB++;
+//            curB = curB.next;
+//        }
+//        curA = headA;
+//        curB = headB;
+//        //Let curA be the head of the longer list:
+//        if (lenA < lenB){
+//            //Swap length:
+//            int tmpLen = lenA;
+//            lenA = lenB;
+//            lenB = tmpLen;
+//            //Swap node:
+//            ListNode tmpNode = curA;
+//            curA = curB;
+//            curB = tmpNode;
+//        }
+//        int diff = lenA - lenB;
+//        //Make curA and curB be at the same position ( when the end points are aligned)
+//        while(diff-- > 0){
+//            curA = curA.next;
+//        }
+//        //Traverse curA an curB, return intersection node:
+//        while (curA != null){
+//            if (curA == curB){return curA;}
+//            curA = curA.next;
+//            curB = curB.next;
+//        }
+//        return null;
+//    }
+    //Merge linked lists:
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB){
+        ListNode p1 = headA, p2 = headB;
+        while(p1 != p2){
+            if (p1 == null) {p1 = headB;}
+            else {p1 = p1.next;}
+            if (p2 == null) {p2 = headA;}
+            else {p2 = p2.next;}
         }
-        curr = new Main().removeNthFromEnd(dumHead.next, 2);
-        while (curr != null){
-            System.out.print(curr.val + " ");
-            curr = curr.next;
-        }
-    }
-    public ListNode removeNthFromEnd(ListNode head, int n){
-        ListNode dummy = new ListNode(0, head);
-        ListNode fast = dummy;
-        ListNode slow = dummy;
-        for (int i = 0; i <= n; i++){//The fast pointer needs to be n + 1 steps ahead of the slow pointer.
-            fast = fast.next;
-        }
-        while (fast != null){//Once the loop finishes, the slow pointer will point to the node preceding the one to be deleted.
-            fast = fast.next;
-            slow = slow.next;
-        }
-        if (slow.next != null){
-            slow.next = slow.next.next;
-        }
-        return dummy.next;
+        return p1;
     }
 }
 
