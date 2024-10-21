@@ -559,37 +559,61 @@
 //    }
 //}
 
-//142. Linked List Cycle II
+////142. Linked List Cycle II
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums = {3,2,0,-4};
+//        ListNode dumHead = new ListNode();
+//        ListNode curr = dumHead;
+//        for (int num : nums) {
+//            curr.next = new ListNode(num);
+//            curr = curr.next;
+//        }
+//        curr.next = dumHead.next.next;
+//        System.out.println(dumHead.next.next);
+//        System.out.println(new Main().detectCycle(dumHead.next));
+//    }
+//    public ListNode detectCycle(ListNode head) {
+//        ListNode fast = head;
+//        ListNode slow = head;
+//        while (fast != null && fast.next != null){
+//            slow = slow.next;
+//            fast = fast.next.next;
+//            if (fast == slow){//circle detected
+//                ListNode index1 = fast;
+//                ListNode index2 = head;
+//                while (index1 != index2){//looking for the node where the cycle begin
+//                    index1 = index1.next;
+//                    index2 = index2.next;
+//                }
+//                return index1;
+//            }
+//        }
+//        return null;
+//    }
+//}
+
+//242. Valid Anagram
 public class Main {
     public static void main(String[] args){
-        int[] nums = {3,2,0,-4};
-        ListNode dumHead = new ListNode();
-        ListNode curr = dumHead;
-        for (int num : nums) {
-            curr.next = new ListNode(num);
-            curr = curr.next;
-        }
-        curr.next = dumHead.next.next;
-        System.out.println(dumHead.next.next);
-        System.out.println(new Main().detectCycle(dumHead.next));
+        String s = "rat";
+        String t = "car";
+        System.out.println(new Main().isAnagram(s, t));
     }
-    public ListNode detectCycle(ListNode head) {
-        ListNode fast = head;
-        ListNode slow = head;
-        while (fast != null && fast.next != null){
-            slow = slow.next;
-            fast = fast.next.next;
-            if (fast == slow){//circle detected
-                ListNode index1 = fast;
-                ListNode index2 = head;
-                while (index1 != index2){//looking for the node where the cycle begin
-                    index1 = index1.next;
-                    index2 = index2.next;
-                }
-                return index1;
+    public boolean isAnagram(String s, String t){
+        int[] record = new int[26];
+        for (int i = 0; i < s.length(); i++){
+            record[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++){
+            record[t.charAt(i) - 'a']--;
+        }
+        for (int i: record){
+            if (i != 0){
+                return false;
             }
         }
-        return null;
+        return true;
     }
 }
 
