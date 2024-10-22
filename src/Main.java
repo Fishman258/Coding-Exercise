@@ -593,29 +593,59 @@
 //    }
 //}
 
-//242. Valid Anagram
+////242. Valid Anagram
+//public class Main {
+//    public static void main(String[] args){
+//        String s = "rat";
+//        String t = "car";
+//        System.out.println(new Main().isAnagram(s, t));
+//    }
+//    public boolean isAnagram(String s, String t){
+//        int[] record = new int[26];
+//        for (int i = 0; i < s.length(); i++){
+//            record[s.charAt(i) - 'a']++;
+//        }
+//        for (int i = 0; i < t.length(); i++){
+//            record[t.charAt(i) - 'a']--;
+//        }
+//        for (int i: record){
+//            if (i != 0){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//}
+
+//349. Intersection of Two Arrays
+import java.util.HashSet;
+import java.util.Set;
 public class Main {
     public static void main(String[] args){
-        String s = "rat";
-        String t = "car";
-        System.out.println(new Main().isAnagram(s, t));
+        int[] nums1 = {4,9,5};
+        int[] nums2 = {9,4,9,8,4};
+        int[] res = new Main().intersection(nums1, nums2);
+        for (int i: res){
+            System.out.print(i + " ");
+        }
     }
-    public boolean isAnagram(String s, String t){
-        int[] record = new int[26];
-        for (int i = 0; i < s.length(); i++){
-            record[s.charAt(i) - 'a']++;
+    public int[] intersection(int[] nums1, int[] nums2){
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> resSet = new HashSet<>();
+        for (int i: nums1){
+            set1.add(i);
         }
-        for (int i = 0; i < t.length(); i++){
-            record[t.charAt(i) - 'a']--;
-        }
-        for (int i: record){
-            if (i != 0){
-                return false;
+        for (int i: nums2){
+            if (set1.contains(i)){
+                resSet.add(i);
             }
         }
-        return true;
+        return resSet.stream().mapToInt(x -> x).toArray();
     }
 }
+
+
+
 
 
 
