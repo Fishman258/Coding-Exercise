@@ -617,30 +617,57 @@
 //    }
 //}
 
-//349. Intersection of Two Arrays
-import java.util.HashSet;
+////349. Intersection of Two Arrays
+//import java.util.HashSet;
+//import java.util.Set;
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums1 = {4,9,5};
+//        int[] nums2 = {9,4,9,8,4};
+//        int[] res = new Main().intersection(nums1, nums2);
+//        for (int i: res){
+//            System.out.print(i + " ");
+//        }
+//    }
+//    public int[] intersection(int[] nums1, int[] nums2){
+//        Set<Integer> set1 = new HashSet<>();
+//        Set<Integer> resSet = new HashSet<>();
+//        for (int i: nums1){
+//            set1.add(i);
+//        }
+//        for (int i: nums2){
+//            if (set1.contains(i)){
+//                resSet.add(i);
+//            }
+//        }
+//        return resSet.stream().mapToInt(x -> x).toArray();
+//    }
+//}
+
+//202. Happy Number
 import java.util.Set;
+import java.util.HashSet;
 public class Main {
     public static void main(String[] args){
-        int[] nums1 = {4,9,5};
-        int[] nums2 = {9,4,9,8,4};
-        int[] res = new Main().intersection(nums1, nums2);
-        for (int i: res){
-            System.out.print(i + " ");
-        }
+        int n = 19;
+        System.out.println(new Main().isHappy(n));
     }
-    public int[] intersection(int[] nums1, int[] nums2){
-        Set<Integer> set1 = new HashSet<>();
-        Set<Integer> resSet = new HashSet<>();
-        for (int i: nums1){
-            set1.add(i);
+    public boolean isHappy(int n){
+        Set<Integer> record = new HashSet<>();//to save numbers appeared
+        while(n != 1 && !record.contains(n)){
+            record.add(n);
+            n = getNextNumber(n);
         }
-        for (int i: nums2){
-            if (set1.contains(i)){
-                resSet.add(i);
-            }
+        return n == 1;
+    }
+    public int getNextNumber(int n){
+        int res = 0;//next number to be
+        while(n > 0){
+            int lsb = n % 10;
+            res += lsb * lsb;
+            n /= 10;
         }
-        return resSet.stream().mapToInt(x -> x).toArray();
+        return res;
     }
 }
 
