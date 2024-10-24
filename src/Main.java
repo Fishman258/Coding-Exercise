@@ -644,30 +644,54 @@
 //    }
 //}
 
-//202. Happy Number
-import java.util.Set;
-import java.util.HashSet;
+////202. Happy Number
+//import java.util.Set;
+//import java.util.HashSet;
+//public class Main {
+//    public static void main(String[] args){
+//        int n = 19;
+//        System.out.println(new Main().isHappy(n));
+//    }
+//    public boolean isHappy(int n){
+//        Set<Integer> record = new HashSet<>();//to save numbers appeared
+//        while(n != 1 && !record.contains(n)){
+//            record.add(n);
+//            n = getNextNumber(n);
+//        }
+//        return n == 1;
+//    }
+//    public int getNextNumber(int n){
+//        int res = 0;//next number to be
+//        while(n > 0){
+//            int lsb = n % 10;
+//            res += lsb * lsb;
+//            n /= 10;
+//        }
+//        return res;
+//    }
+//}
+
+//1. Two Sum
+import java.util.Map;
+import java.util.HashMap;
 public class Main {
     public static void main(String[] args){
-        int n = 19;
-        System.out.println(new Main().isHappy(n));
-    }
-    public boolean isHappy(int n){
-        Set<Integer> record = new HashSet<>();//to save numbers appeared
-        while(n != 1 && !record.contains(n)){
-            record.add(n);
-            n = getNextNumber(n);
+        int[] nums = {2,7,11,15};
+        for (int i: new Main().twoSum(nums, 9)){
+            System.out.println(i);
         }
-        return n == 1;
     }
-    public int getNextNumber(int n){
-        int res = 0;//next number to be
-        while(n > 0){
-            int lsb = n % 10;
-            res += lsb * lsb;
-            n /= 10;
+    public int[] twoSum(int[] nums, int target){
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++){
+            int diff = target - nums[i];
+            if (indexMap.containsKey(diff)){
+                return new int[]{indexMap.get(diff), i};
+            }else {
+                indexMap.put(nums[i], i);
+            }
         }
-        return res;
+        return null;
     }
 }
 
