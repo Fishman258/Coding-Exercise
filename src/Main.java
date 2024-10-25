@@ -695,32 +695,56 @@
 //    }
 //}
 
-//454. 4Sum II
-import java.util.Map;
-import java.util.HashMap;
+////454. 4Sum II
+//import java.util.Map;
+//import java.util.HashMap;
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums1 = {1,2};
+//        int[] nums2 = {-2,-1};
+//        int[] nums3 = {-1,2};
+//        int[] nums4 = {0,2};
+//        System.out.println(new Main().fourSumCount(nums1, nums2, nums3, nums4));
+//    }
+//    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+//        int res = 0;
+//        Map<Integer, Integer> map = new HashMap<>();
+//        for (int i: nums1){
+//            for (int j: nums2){
+//                int sum = i + j;
+//                map.put(sum, map.getOrDefault(sum, 0) + 1);
+//            }
+//        }
+//        for (int i: nums3){
+//            for (int j: nums4){
+//                res += map.getOrDefault(-i - j, 0);
+//            }
+//        }
+//        return res;
+//    }
+//}
+
+//383. Ransom Note
 public class Main {
     public static void main(String[] args){
-        int[] nums1 = {1,2};
-        int[] nums2 = {-2,-1};
-        int[] nums3 = {-1,2};
-        int[] nums4 = {0,2};
-        System.out.println(new Main().fourSumCount(nums1, nums2, nums3, nums4));
+        String ransomNote = "aa";
+        String magazine = "aab";
+        System.out.println(new Main().canConstruct(ransomNote, magazine));
     }
-    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
-        int res = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i: nums1){
-            for (int j: nums2){
-                int sum = i + j;
-                map.put(sum, map.getOrDefault(sum, 0) + 1);
+    public boolean canConstruct(String ransomNote, String magazine){
+        int[] record = new int[26];
+        for (int i: magazine.toCharArray()){
+            record[i - 'a'] += 1;
+        }
+        for (int i: ransomNote.toCharArray()){
+            record[i - 'a'] -= 1;
+        }
+        for (int i: record){
+            if (i < 0){
+                return false;
             }
         }
-        for (int i: nums3){
-            for (int j: nums4){
-                res += map.getOrDefault(-i - j, 0);
-            }
-        }
-        return res;
+        return true;
     }
 }
 
