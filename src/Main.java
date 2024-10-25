@@ -671,27 +671,56 @@
 //    }
 //}
 
-//1. Two Sum
+////1. Two Sum
+//import java.util.Map;
+//import java.util.HashMap;
+//public class Main {
+//    public static void main(String[] args){
+//        int[] nums = {2,7,11,15};
+//        for (int i: new Main().twoSum(nums, 9)){
+//            System.out.println(i);
+//        }
+//    }
+//    public int[] twoSum(int[] nums, int target){
+//        Map<Integer, Integer> indexMap = new HashMap<>();
+//        for (int i = 0; i < nums.length; i++){
+//            int diff = target - nums[i];
+//            if (indexMap.containsKey(diff)){
+//                return new int[]{indexMap.get(diff), i};
+//            }else {
+//                indexMap.put(nums[i], i);
+//            }
+//        }
+//        return null;
+//    }
+//}
+
+//454. 4Sum II
 import java.util.Map;
 import java.util.HashMap;
 public class Main {
     public static void main(String[] args){
-        int[] nums = {2,7,11,15};
-        for (int i: new Main().twoSum(nums, 9)){
-            System.out.println(i);
-        }
+        int[] nums1 = {1,2};
+        int[] nums2 = {-2,-1};
+        int[] nums3 = {-1,2};
+        int[] nums4 = {0,2};
+        System.out.println(new Main().fourSumCount(nums1, nums2, nums3, nums4));
     }
-    public int[] twoSum(int[] nums, int target){
-        Map<Integer, Integer> indexMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++){
-            int diff = target - nums[i];
-            if (indexMap.containsKey(diff)){
-                return new int[]{indexMap.get(diff), i};
-            }else {
-                indexMap.put(nums[i], i);
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        int res = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i: nums1){
+            for (int j: nums2){
+                int sum = i + j;
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
             }
         }
-        return null;
+        for (int i: nums3){
+            for (int j: nums4){
+                res += map.getOrDefault(-i - j, 0);
+            }
+        }
+        return res;
     }
 }
 
